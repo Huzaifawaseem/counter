@@ -1,0 +1,47 @@
+.dashboard {
+    background-color: #fafff1;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; 
+    width: auto;
+    flex-wrap: wrap;
+    border-radius: 10px;
+}
+
+.table-container {
+    background-color: #ffffb7;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; 
+    width: auto;
+    flex-wrap: wrap;
+    border-radius: 10px;
+}
+
+
+.button-container {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hide-button {
+    cursor: pointer;
+    width: 100%;
+}
+
+.hide-button:hover {
+    background-color: #5a3f2e;
+}

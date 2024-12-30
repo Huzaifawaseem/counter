@@ -1,0 +1,60 @@
+/* table.css */
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #ff9900;
+  border-radius: 5px;
+  background-color: #2d0c05;
+  color: #ff9900;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  background-color: #5a3f2e;
+  color: white;
+  box-shadow: 0 0 0;
+}
+
+.data-table {
+  margin-top: 30px;
+  overflow-x: auto;
+  color: #2d0c05;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #2d0c05;
+}
+
+th {
+  background-color: #ff9900;
+}
+
+button:hover {
+  background-color: #5a3f2e;
+  color: white; /* Optional: Ensure text color changes to maintain readability */
+}

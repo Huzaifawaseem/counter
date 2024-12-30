@@ -1,0 +1,65 @@
+/* Outer container box */
+.progress-box {
+    width: 180px;
+    padding: 20px;
+    background-color: white; /* White background */
+    border: 2px solid #2d0b05; /* Black border */
+    border-radius: 10px;     /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for aesthetics */
+    text-align: center;
+    margin: 5px;
+}
+
+/* Heading style */
+.progress-title {
+    margin: 0 0 10px; /* Add some space below the title */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Circular progress container */
+.circular-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+/* SVG Circle */
+.progress-ring {
+    transform: rotate(-90deg); /* Start the progress from the top */
+    overflow: visible;
+}
+
+.progress-ring-bg {
+    stroke: #e0e0e0; /* Background stroke color for the progress bar */
+    transition: stroke-dashoffset 0.35s;
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.35s; /* Smooth animation */
+    transform-origin: center;
+}
+
+/* Percentage text inside the circle */
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2d0b05;
+}
+
+.unit {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.75rem;
+    
+}

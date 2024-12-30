@@ -1,0 +1,47 @@
+.header {
+    background-color: #2d0c05; /* Header background color */
+    color: #fca91f;            /* Text color */
+    padding: 1rem;             /* Padding for content */
+    width: 100%; 
+    height: 110px;              /* Full width of browser */
+    display: flex;             /* Flexbox for alignment */
+    align-items: center;       /* Vertically center content */
+    justify-content: space-between; /* Space between logos and title */
+    position: fixed;           /* Fix header at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+.header-logo {
+    height: 75px;              /* Adjust the height as needed */
+    width: auto;               /* Maintain aspect ratio */
+}
+
+.left-logo {
+    margin-left: 0.5rem;         /* Optional: Add spacing from the edge */
+}
+
+.right-logo {
+    margin-right: 0.5rem;        /* Optional: Add spacing from the edge */
+}
+
+.header-content {
+    text-align: center;        /* Center align title and subtitle */
+    flex-grow: 1;              /* Allow this section to grow and take available space */
+}
+
+.header-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.header-sub-title {
+    margin: 0;
+    font-size: 1rem;
+    color: #ff9900;
+}
