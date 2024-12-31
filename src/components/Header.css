@@ -100,18 +100,19 @@
 }
 
 @media (max-width: 466px) {
+    
     .header-title {
         visibility: hidden; /* Hide the original text */
         position: relative; /* Ensure positioning works for pseudo-elements */
-        height: 1.5rem; /* Set height for proper layout */
-        line-height: 1.5rem; /* Align text vertically */
+        height: 2.4rem; /* Adjust height for two-line content */
+        line-height: 1.2rem; /* Adjust line-height for better text alignment */
     }
 
     .header-title::after {
-        content: "WATER MONITORING"; /* New content */
+        content: "WATER\A MONITORING"; /* New content with line break */
         visibility: visible; /* Make the pseudo-element visible */
         position: absolute;
-        top: 0; /* Align text to the top of the parent */
+        top: 0;
         left: 0;
         right: 0;
         text-align: center;
@@ -119,7 +120,9 @@
         font-weight: bold;
         color: inherit; /* Match the color of the parent element */
         display: block; /* Ensure proper rendering */
+        white-space: pre-wrap; /* Ensure that \A is interpreted as a line break */
     }
+
 
     .header-sub-title {
         margin: 0;
