@@ -45,3 +45,85 @@
     font-size: 1rem;
     color: #ff9900;
 }
+
+
+@media (max-width: 830px) {
+    .header {
+    background-color: #2d0c05; /* Header background color */
+    color: #fca91f;            /* Text color */
+    padding: 1rem;             /* Padding for content */
+    width: 100%; 
+    height: 80px;              /* Full width of browser */
+    display: flex;             /* Flexbox for alignment */
+    align-items: center;       /* Vertically center content */
+    justify-content: space-between; /* Space between logos and title */
+    position: fixed;           /* Fix header at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+    box-sizing: border-box;
+    border-radius: 50px;
+    }
+
+    .header-logo {
+    height: 55px;              /* Adjust the height as needed */
+    width: auto;               /* Maintain aspect ratio */
+    }
+
+    .header-title {
+        visibility: hidden; /* Hide the original text */
+        position: relative; /* Ensure positioning works for pseudo-elements */
+        height: 1.5rem; /* Set height for proper layout */
+        line-height: 1.5rem; /* Align text vertically */
+    }
+
+    .header-title::after {
+        content: "WATER QUALITY MONITORING"; /* New content */
+        visibility: visible; /* Make the pseudo-element visible */
+        position: absolute;
+        top: 0; /* Align text to the top of the parent */
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: inherit; /* Match the color of the parent element */
+        display: block; /* Ensure proper rendering */
+    }
+    
+    .header-sub-title {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #ff9900;
+    }
+}
+
+@media (max-width: 466px) {
+    .header-title {
+        visibility: hidden; /* Hide the original text */
+        position: relative; /* Ensure positioning works for pseudo-elements */
+        height: 1.5rem; /* Set height for proper layout */
+        line-height: 1.5rem; /* Align text vertically */
+    }
+
+    .header-title::after {
+        content: "WATER MONITORING"; /* New content */
+        visibility: visible; /* Make the pseudo-element visible */
+        position: absolute;
+        top: 0; /* Align text to the top of the parent */
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: inherit; /* Match the color of the parent element */
+        display: block; /* Ensure proper rendering */
+    }
+
+    .header-sub-title {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #ff9900;
+    }
+}

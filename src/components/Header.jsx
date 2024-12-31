@@ -8,8 +8,9 @@ const Header = () => {
         <header className="header">
             <img src={leftLogo} alt="Left Logo" className="header-logo left-logo" />
             <div className="header-content">
-                <h1 className="header-title">WATER MONITORING SYSTEM</h1>
-                <h2 className="header-sub-title">FYP CIVIL</h2>
+                <h1 className="header-title">SENSOR BASED WATER QUALITY
+                    MONITORING USING IoT & REAL TIME</h1>
+                <h2 className="header-sub-title">Batch 2021</h2>
             </div>
             <img src={rightLogo} alt="Right Logo" className="header-logo right-logo" />
         </header>

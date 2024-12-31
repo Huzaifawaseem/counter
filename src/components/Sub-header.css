@@ -3,7 +3,7 @@
     color: #2d0c05;            /* Text color */
     padding: 1rem;             /* Padding for content */
     width: 100%; 
-    height: 75px;              /* Full width of browser */
+    height: auto;              /* Full width of browser */
     display: flex;             /* Flexbox for alignment */
     align-items: center;       /* Vertically center content */
     justify-content: space-between; /* Space between logos and title */
@@ -30,4 +30,27 @@
     height: 5px;
     top: 0;
     left: 0
+}
+
+.header-sub-titles {
+    color: #5a3f2e;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.header-titles {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+@media (max-width: 830px) {
+    .top {
+    background-color: #f8cc20;
+    margin-top: 90px;
+    width: 100%;
+    height: 5px;
+    top: 0;
+    left: 0
+    }
 }
