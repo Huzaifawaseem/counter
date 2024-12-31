@@ -121,6 +121,7 @@
         color: inherit; /* Match the color of the parent element */
         display: block; /* Ensure proper rendering */
         white-space: pre-wrap; /* Ensure that \A is interpreted as a line break */
+        margin: 0px;
     }
 
 
@@ -129,4 +130,17 @@
         font-size: 0.8rem;
         color: #ff9900;
     }
+
+    .left-logo {
+        margin-left: 0.2rem;         /* Optional: Add spacing from the edge */
+    }
+
+    .right-logo {
+        margin-right: 0.2rem;        /* Optional: Add spacing from the edge */
+    }
+    .header-content {
+    text-align: center;        /* Center align title and subtitle */
+    width: 30px;
+    margin: 0px;
+}
 }
