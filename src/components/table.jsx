@@ -2,100 +2,115 @@ import React, { useState, useEffect } from 'react';
 import './table.css';
 import * as XLSX from 'xlsx';
 
-const Table = ({ turbidity_Value, TDS_Value }) => {
+const Table = ({
+  temperature,
+  pH,
+  EC,
+  ORP,
+  TDS,
+  turbidity,
+}) => {
   const [data, setData] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
-
   const MAX_ROWS = 500;
 
-  // Load data from localStorage
+  // Load data from localStorage on mount
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data')) || [];
     setData(savedData);
   }, []);
 
-  // Save data to localStorage
+  // Function to save new data to localStorage and update state
   const saveDataToLocalStorage = (newData) => {
     const updatedData = [...data, newData];
-
-    // If rows exceed MAX_ROWS, remove the oldest entry
+    // Keep the rows within MAX_ROWS
     if (updatedData.length > MAX_ROWS) {
-      updatedData.shift();
+      updatedData.shift(); // remove the oldest entry
     }
-
-    // Save updated data to localStorage
     localStorage.setItem('data', JSON.stringify(updatedData));
-    setData(updatedData); // Update state to trigger re-render
+    setData(updatedData);
   };
 
-  // Start saving data
+  // Start and stop saving functions
   const startSaving = () => {
     setIsSaving(true);
   };
 
-  // Stop saving data
   const stopSaving = () => {
     setIsSaving(false);
   };
 
-  // Delete entire table
+  // Delete the entire table (clear localStorage data)
   const deleteTable = () => {
     localStorage.removeItem('data');
     setData([]);
   };
 
-  // Export to Excel
+  // Export data to an Excel file
   const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, 'Turbidity_TDS_Data.xlsx');
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    XLSX.writeFile(workbook, 'Sensor_Data.xlsx');
   };
 
-  // Periodically save data if isSaving is true
+  // Periodically save sensor readings if "isSaving" is true
   useEffect(() => {
     if (isSaving) {
       const interval = setInterval(() => {
         const date = new Date().toLocaleString();
         const newData = {
-          turbidity: turbidity_Value,
-          tds: TDS_Value,
-          date: date,
+          temperature,
+          pH,
+          EC,
+          ORP,
+          tds: TDS,
+          turbidity,
+          date,
         };
         saveDataToLocalStorage(newData);
-      }, 5000); // Save every 5 seconds
-
+      }, 5000); // every 5 seconds
       return () => clearInterval(interval);
     }
-  }, [isSaving, turbidity_Value, TDS_Value]);
+  }, [isSaving, temperature, pH, EC, ORP, TDS, turbidity]);
 
   return (
     <div className="container">
-      <h1>Turbidity & TDS Tracker</h1>
-
+      <h1>Sensor Data Tracker</h1>
       <div className="button-container">
-        <button onClick={startSaving} disabled={isSaving}>Start Saving</button>
-        <button onClick={stopSaving} disabled={!isSaving}>Stop Saving</button>
+        <button onClick={startSaving} disabled={isSaving}>
+          Start Saving
+        </button>
+        <button onClick={stopSaving} disabled={!isSaving}>
+          Stop Saving
+        </button>
         <button onClick={deleteTable}>Delete Table</button>
         <button onClick={exportToExcel}>Export to Excel</button>
       </div>
-
       <div className="data-table">
         <h2>Recorded Data</h2>
         <table>
           <thead>
             <tr>
               <th>Date</th>
-              <th>Turbidity</th>
-              <th>TDS</th>
+              <th>Temperature (°C)</th>
+              <th>pH</th>
+              <th>EC (µs/cm)</th>
+              <th>ORP (mV)</th>
+              <th>TDS (PPM)</th>
+              <th>Turbidity (NTU)</th>
             </tr>
           </thead>
           <tbody>
             {data.map((entry, index) => (
               <tr key={index}>
                 <td>{entry.date}</td>
-                <td>{entry.turbidity}</td>
+                <td>{entry.temperature}</td>
+                <td>{entry.pH}</td>
+                <td>{entry.EC}</td>
+                <td>{entry.ORP}</td>
                 <td>{entry.tds}</td>
+                <td>{entry.turbidity}</td>
               </tr>
             ))}
           </tbody>

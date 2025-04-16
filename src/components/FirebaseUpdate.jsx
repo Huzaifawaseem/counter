@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 import './FirebaseUpdate.css';
-import Table from './table';
+import Table from './Table';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -24,42 +24,44 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 
 const FirebaseUpdate = () => {
+  // State variables for all sensor parameters
+  const [temperature, setTemperature] = useState(null);
+  const [pH, setPH] = useState(null);
+  const [EC, setEC] = useState(null);
+  const [ORP, setORP] = useState(null);
   const [TDS, setTDS] = useState(null);
   const [turbidity, setTurbidity] = useState(null);
-  const [isTableVisible, setIsTableVisible] = useState(true); // State to toggle table visibility
+  const [isTableVisible, setIsTableVisible] = useState(true);
 
-  // Load saved data from LocalStorage
+  // On mount: load the latest saved reading from localStorage
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data')) || [];
     if (savedData.length > 0) {
-      setTDS(savedData[savedData.length - 1]?.tds);
-      setTurbidity(savedData[savedData.length - 1]?.turbidity);
+      const latest = savedData[savedData.length - 1];
+      setTemperature(latest.temperature);
+      setPH(latest.pH);
+      setEC(latest.EC);
+      setORP(latest.ORP);
+      setTDS(latest.tds);
+      setTurbidity(latest.turbidity);
     }
   }, []);
 
-  // Save data to LocalStorage
+  // Save new sensor reading to localStorage
   const saveDataToLocalStorage = (newData) => {
     const existingData = JSON.parse(localStorage.getItem('data')) || [];
     const updatedData = [...existingData, newData];
-
-    // If rows exceed 500, remove the oldest data
     if (updatedData.length > 500) {
       updatedData.shift();
     }
-
-    // Save to LocalStorage
     localStorage.setItem('data', JSON.stringify(updatedData));
   };
 
   useEffect(() => {
     // Sign in anonymously to Firebase when the component mounts
     signInAnonymously(auth)
-      .then(() => {
-        console.log("User signed in anonymously");
-      })
-      .catch((error) => {
-        console.error("Error signing in anonymously:", error);
-      });
+      .then(() => console.log("User signed in anonymously"))
+      .catch((error) => console.error("Error signing in anonymously:", error));
 
     // Reference to the sensor data in Firebase
     const dbRef = ref(database, 'sensor');
@@ -68,44 +70,63 @@ const FirebaseUpdate = () => {
     const unsubscribe = onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setTDS(data.TDS);  // Update TDS state
-        setTurbidity(data.turbidity);  // Update turbidity state
+        // Update state for all parameters
+        setTemperature(data.temperature);
+        setPH(data.pH);
+        setEC(data.EC);
+        setORP(data.ORP);
+        setTDS(data.TDS);
+        setTurbidity(data.turbidity);
 
-        // Save data to localStorage
+        // Save new data with timestamp
         const date = new Date().toLocaleString();
         const newData = {
-          turbidity: data.turbidity,
+          temperature: data.temperature,
+          pH: data.pH,
+          EC: data.EC,
+          ORP: data.ORP,
           tds: data.TDS,
-          date: date,
+          turbidity: data.turbidity,
+          date,
         };
         saveDataToLocalStorage(newData);
       }
     });
     
-    // Cleanup listener on component unmount
+    // Cleanup listener on unmount
     return () => unsubscribe();
   }, []);
 
-  // Toggle table visibility
   const toggleTableVisibility = () => {
     setIsTableVisible(!isTableVisible);
   };
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       <div className="dashboard">
-        <CircularProgressBar percentage={turbidity} title={"Turbidity"} unit={"NTU"} max_value={1000} />
-        <CircularProgressBar percentage={TDS} title={"TDS"} unit={"PPM"} max_value={3000} />
+        <CircularProgressBar percentage={temperature} title="Temperature" unit="°C" max_value={125} />
+        <CircularProgressBar percentage={pH} title="pH" unit="pH" max_value={14} />
+        <CircularProgressBar percentage={EC} title="EC" unit="µs/cm" max_value={15000} />
+        <CircularProgressBar percentage={ORP} title="ORP" unit="mV" max_value={650} />
+        <CircularProgressBar percentage={TDS} title="TDS" unit="PPM" max_value={3000} />
+        <CircularProgressBar percentage={turbidity} title="Turbidity" unit="NTU" max_value={1000} />
       </div>
       <button className="hide-button" onClick={toggleTableVisibility}>
         {isTableVisible ? "Hide Table ▲" : "Show Table ▼"}
       </button>
-      <div className='table-container' style={{ display: isTableVisible ? "block" : "none" }}>
-        <Table turbidity_Value={turbidity} TDS_Value={TDS} />
+      <div className="table-container" style={{ display: isTableVisible ? "block" : "none" }}>
+        {/* Pass the sensor values using the same names */}
+        <Table 
+          temperature={temperature}
+          pH={pH}
+          EC={EC}
+          ORP={ORP}
+          TDS={TDS}
+          turbidity={turbidity} 
+        />
       </div>
     </div>
   );
 };
-
 
 export default FirebaseUpdate;
