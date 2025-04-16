@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 import './FirebaseUpdate.css';
-import Table from './Table';
+import Table from './table';
 
 // Firebase configuration
 const firebaseConfig = {
